@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { AgGridReact } from "ag-grid-react";
+
 import "./App.css";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-material.css";
+
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
@@ -21,11 +24,6 @@ function App() {
   const inputChanged = (event) => {
     setTodo({ ...todo, [event.target.name]: event.target.value });
   };
-
-  const ChangeDate = (day) => {
-    setTodo({ ...todo, date : day })
-  };
-  
 
   const columns = [
     { field: "desc", sortable: true, filter: true },
@@ -46,25 +44,26 @@ function App() {
             label="Date"
             name="date"
             value={todo.date}
-            onChange={ChangeDate}
+            onChange={(time) => setTodo({ ...todo, date: time })}
+            animateYearScrolling
           />
         </MuiPickersUtilsProvider>
         <TextField
           label="Description"
           variant="standard"
-          name="description"
+          name="desc"
           value={todo.desc}
           onChange={inputChanged}
         />
         <TextField
           label="Priority"
           variant="standard"
-          name="prio"
+          name="priority"
           value={todo.priority}
           onChange={inputChanged}
         />
         <Button onClick={addTodo} variant="contained">
-          Add event
+          Add
         </Button>
       </Stack>
       <div
